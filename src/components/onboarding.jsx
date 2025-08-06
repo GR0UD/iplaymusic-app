@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Icons from "../utils/Icons";
+import Icons from "../app/utils/Icons";
 import "../styles/components/_onboarding.scss";
 
 const slides = [

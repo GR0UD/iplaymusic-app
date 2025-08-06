@@ -1,4 +1,4 @@
-import Icons from "../utils/Icons";
+import Icons from "../app/utils/Icons";
 import { NavLink } from "react-router-dom";
 
 export default function Dock() {

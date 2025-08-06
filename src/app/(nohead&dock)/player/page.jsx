@@ -1,5 +1,4 @@
-import Layout from "../components/layout";
-import Header from "../components/header";
+import Header from "../../components/header";
 import "../styles/pages/_player.scss";
 import Icons from "../utils/Icons";
 
@@ -7,7 +6,7 @@ export default function PlayerPage() {
   return (
     <>
       <Header heading='Playing' search={false} dark={false} />
-      <Layout className='player'>
+      <main className='player'>
         <section className='player__section'>
           <article className='player__vinyl-wrapper'>
             <figure className='player__vinyl'>
@@ -65,7 +64,7 @@ export default function PlayerPage() {
             </button>
           </nav>
         </section>
-      </Layout>
+      </main>
     </>
   );
 }

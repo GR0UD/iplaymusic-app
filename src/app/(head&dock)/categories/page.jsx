@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import Layout from "../components/layout";
-import Header from "../components/header";
-import Dock from "../components/dock";
+import Header from "../../components/header";
+import Dock from "../../components/dock";
 import "../styles/pages/_categories.scss";
 import Icons from "../utils/Icons";
 
@@ -124,7 +123,7 @@ export default function CategoriesPage() {
     <>
       <Header heading='Categories' search={true} dark={false} />
 
-      <Layout className='categories'>
+      <main className='categories'>
         <section className='categories__section'>
           <h2 className='categories__title'>Categories</h2>
 
@@ -158,7 +157,7 @@ export default function CategoriesPage() {
             ))}
           </div>
         </section>
-      </Layout>
+      </main>
 
       <Dock />
     </>

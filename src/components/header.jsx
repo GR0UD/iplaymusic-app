@@ -1,5 +1,5 @@
 import "../styles/components/_header.scss";
-import Icons from "../utils/Icons";
+import Icons from "../app/utils/Icons";
 import { useNavigate } from "react-router";
 
 export default function Header({ heading, search = false, dark = false }) {

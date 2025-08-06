@@ -1,6 +1,5 @@
-import Layout from "../components/layout";
-import Header from "../components/header";
-import Dock from "../components/dock";
+import Header from "../../components/header";
+import Dock from "../../components/dock";
 import "../styles/pages/_albums.scss";
 import Icons from "../utils/Icons";
 
@@ -42,7 +41,7 @@ export default function AlbumsPage() {
     <>
       <Header heading='MUSIC' search={true} dark={false} />
 
-      <Layout className='albums'>
+      <main className='albums'>
         <h2 className='albums__title'>All Albums</h2>
 
         <section className='albums__section'>
@@ -91,7 +90,7 @@ export default function AlbumsPage() {
             ))}
           </ul>
         </section>
-      </Layout>
+      </main>
 
       <Dock />
     </>

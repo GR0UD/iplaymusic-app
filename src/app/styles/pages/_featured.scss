@@ -1,0 +1,71 @@
+@use "../utils/variables" as *;
+
+.featured {
+  padding: 0 2.5rem;
+  margin-bottom: 10rem;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: $font-size-heading-lg;
+    font-weight: $font-weight-bold;
+    background: $gradient-primary;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: left;
+    margin-bottom: 3.5rem;
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__card {
+    position: relative;
+    background: $color-white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 5px 12.5px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+    display: grid;
+  }
+
+  &__overlay {
+    grid-area: 1 / 1;
+    background: linear-gradient(to top left, black, transparent);
+  }
+
+  &__image {
+    grid-area: 1 / 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  &__content {
+    grid-area: 1 / 1;
+    align-self: end;
+    padding: 2rem;
+    color: $color-white;
+    margin-bottom: 4rem;
+  }
+
+  &__heading {
+    font-size: $font-size-heading-md;
+    font-weight: $font-weight-bold;
+    margin-bottom: 0.8rem;
+    max-width: 250px;
+  }
+
+  &__subtext {
+    font-size: $font-size-caption;
+    color: #eee;
+    font-weight: 200;
+  }
+}

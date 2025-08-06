@@ -1,0 +1,59 @@
+@use "../utils/variables" as *;
+
+.dock {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: $color-white;
+  box-shadow: 0 -5px 12.5px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5rem;
+    padding: 1rem 3.2rem;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dock__item--events {
+    background: $gradient-primary;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      padding: 1rem;
+    }
+    svg {
+      fill: $color-white;
+    }
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+
+    svg {
+      transition: transform 0.2s ease;
+      fill: url(#dock-gradient);
+    }
+
+    &--active svg {
+      fill: $color-dark-purple;
+    }
+  }
+}

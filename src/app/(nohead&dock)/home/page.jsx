@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-import Layout from "../components/layout";
-import Intro from "../components/intro";
-import Onboarding from "../components/onboarding";
-import Icons from "../utils/Icons";
+import Intro from "../../../componeSnts/intro";
+import Onboarding from "../../../components/onboarding";
+import Icons from "../../utils/Icons";
 
 export default function HomePage() {
   const [showLogin, setShowLogin] = useState(true);
@@ -20,7 +19,7 @@ export default function HomePage() {
   return (
     <>
       <Intro />
-      <Layout className='login'>
+      <main className='login'>
         {showLogin && (
           <section
             className={`login__section ${
@@ -85,7 +84,7 @@ export default function HomePage() {
           </section>
         )}
         {!showLogin && <Onboarding />}
-      </Layout>
+      </main>
     </>
   );
 }

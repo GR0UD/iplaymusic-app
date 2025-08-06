@@ -1,6 +1,5 @@
-import Layout from "../components/layout";
-import Header from "../components/header";
-import Dock from "../components/dock";
+import Header from "../../components/header";
+import Dock from "../../components/dock";
 import "../styles/pages/_featured.scss";
 
 export default function FeaturedPage() {
@@ -8,7 +7,7 @@ export default function FeaturedPage() {
     <>
       <Header heading='Featured' search={true} dark={false} />
 
-      <Layout className='featured'>
+      <main className='featured'>
         <section className='featured__section'>
           <h2 className='featured__title'>Featured</h2>
 
@@ -42,7 +41,7 @@ export default function FeaturedPage() {
             </article>
           </div>
         </section>
-      </Layout>
+      </main>
 
       <Dock />
     </>

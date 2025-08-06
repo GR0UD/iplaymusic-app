@@ -1,6 +1,5 @@
-import Layout from "../components/layout";
-import Header from "../components/header";
-import Dock from "../components/dock";
+import Header from "../../components/header";
+import Dock from "../../components/dock";
 import "../styles/pages/_playlists.scss";
 import Icons from "../utils/Icons";
 
@@ -23,7 +22,7 @@ export default function PlaylistsPage() {
   return (
     <>
       <Header heading='Playlists' search={true} dark={true} />
-      <Layout className='playlist'>
+      <main className='playlist'>
         <img
           className='playlist__background-img'
           src='/images/sound-wave.png'
@@ -72,7 +71,7 @@ export default function PlaylistsPage() {
             <button className='playlist__listen-all'>Listen All</button>
           </div>
         </section>
-      </Layout>
+      </main>
 
       <Dock />
     </>
