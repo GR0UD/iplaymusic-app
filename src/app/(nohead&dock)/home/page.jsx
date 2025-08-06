@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 
-import Intro from "../../../componeSnts/intro";
-import Onboarding from "../../../components/onboarding";
+import Intro from "@/components/intro";
+import Onboarding from "@/components/onboarding";
 import Icons from "../../utils/Icons";
 
 export default function HomePage() {

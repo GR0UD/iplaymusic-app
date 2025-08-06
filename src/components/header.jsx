@@ -1,4 +1,4 @@
-import "../styles/components/_header.scss";
+import "@/styles/components/_header.scss";
 import Icons from "../app/utils/Icons";
 import { useNavigate } from "react-router";
 

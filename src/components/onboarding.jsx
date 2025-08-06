@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import Link from "next/link";
 import Icons from "../app/utils/Icons";
-import "../styles/components/_onboarding.scss";
+import "@/styles/components/_onboarding.scss";
 
 const slides = [
   {
@@ -73,9 +73,9 @@ export default function Onboarding() {
         ))}
       </div>
 
-      <NavLink to='/featured' className='onboarding__skip'>
+      <Link to='/featured' className='onboarding__skip'>
         SKIP
-      </NavLink>
+      </Link>
     </section>
   );
 }
