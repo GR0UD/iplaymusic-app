@@ -6,6 +6,8 @@ import Intro from "@/components/intro";
 import Onboarding from "@/components/onboarding";
 import Icons from "../../utils/Icons";
 
+import "@/styles/pages/_login.scss";
+
 export default function HomePage() {
   const [showLogin, setShowLogin] = useState(true);
   const [startFadeOut, setStartFadeOut] = useState(false);

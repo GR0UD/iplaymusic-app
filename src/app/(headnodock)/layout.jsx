@@ -3,7 +3,6 @@ import "../globals.css";
 import { usePathname } from "next/navigation";
 
 import Header from "@/components/header";
-import Dock from "@/components/dock";
 
 export const metadata = {
   title: "iPlayMusic App",
