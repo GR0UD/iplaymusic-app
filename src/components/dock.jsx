@@ -6,17 +6,17 @@ export default function Dock() {
     <nav className='dock' aria-label='Bottom Navigation'>
       <ul className='dock__list'>
         <li className='dock__item'>
-          <Link href='/categories' className='dock__link'>
+          <Link href='/albums' className='dock__link'>
             <Icons.pulse size={25} aria-label='Categories' />
           </Link>
         </li>
         <li className='dock__item'>
-          <Link href='/featured' className='dock__link'>
+          <Link href='/playlists' className='dock__link'>
             <Icons.microphone size={25} aria-label='Featured' />
           </Link>
         </li>
         <li className='dock__item--events'>
-          <Link href='/events' className='dock__link'>
+          <Link href='/featured' className='dock__link'>
             <Icons.events size={30} aria-label='Events' />
           </Link>
         </li>

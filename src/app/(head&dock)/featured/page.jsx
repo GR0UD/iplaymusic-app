@@ -4,7 +4,7 @@ import "@/styles/pages/_featured.scss";
 
 export default async function FeaturedPage() {
   const cookieStore = cookies();
-  const accessToken = cookieStore.get("spotify_access_token");
+  const accessToken = cookieStore.get("ipm_access_token");
 
   if (!accessToken?.value) {
     // Optionally, redirect to login or show an error
