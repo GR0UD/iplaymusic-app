@@ -1,49 +1,47 @@
-import Header from "../../components/header";
-import Dock from "../../components/dock";
-import "../styles/pages/_featured.scss";
+import FeaturedAlbumCard from "@/components/featuredAlbumCard";
+import { cookies } from "next/headers";
+import "@/styles/pages/_featured.scss";
 
-export default function FeaturedPage() {
-  return (
-    <>
-      <Header heading='Featured' search={true} dark={false} />
+export default async function FeaturedPage() {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get("spotify_access_token");
 
+  if (!accessToken?.value) {
+    // Optionally, redirect to login or show an error
+    return (
       <main className='featured'>
         <section className='featured__section'>
           <h2 className='featured__title'>Featured</h2>
-
-          <div className='featured__grid'>
-            <article className='featured__card'>
-              <img
-                src='/images/placeholders/1.png'
-                alt='Cover for The Greatest Showman'
-                className='featured__image'
-              />
-
-              <div className='featured__overlay'></div>
-              <div className='featured__content'>
-                <h3 className='featured__heading'>The Greatest Showman</h3>
-                <span className='featured__subtext'>Soundtrack</span>
-              </div>
-            </article>
-
-            <article className='featured__card'>
-              <img
-                src='/images/placeholders/2.png'
-                alt='Cover for Another Album'
-                className='featured__image'
-              />
-              <div className='featured__overlay'></div>
-
-              <div className='featured__content'>
-                <h3 className='featured__heading'>Another Album</h3>
-                <span className='featured__subtext'>Soundtrack</span>
-              </div>
-            </article>
-          </div>
+          <p className='featured__error'>
+            No Spotify access token found. Please log in.
+          </p>
         </section>
       </main>
+    );
+  }
 
-      <Dock />
-    </>
+  const response = await fetch(
+    "https://api.spotify.com/v1/browse/new-releases",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken.value}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const data = await response.json();
+
+  return (
+    <main className='featured'>
+      <section className='featured__section'>
+        <h2 className='featured__title'>Featured</h2>
+        <div className='featured__grid'>
+          {data.albums.items.map((album) => (
+            <FeaturedAlbumCard key={album.id} album={album} />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }

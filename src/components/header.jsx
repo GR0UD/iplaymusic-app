@@ -1,9 +1,9 @@
 import "@/styles/components/_header.scss";
 import Icons from "@/utils/icons";
-import { useNavigate } from "react-router";
+import { useRouter } from "next/navigation";
 
 export default function Header({ heading, search = false, dark = false }) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleSearch = () => {
     console.log("Search triggered");
@@ -17,17 +17,15 @@ export default function Header({ heading, search = false, dark = false }) {
         <div className='header__icon-container'>
           <button
             className={`header__icon-button ${lightModeClass}`}
-            onClick={() => navigate(-1)}
+            onClick={() => router.back()} // <-- use router.back()
             aria-label='Go back'
           >
             <Icons.back size={20} />
           </button>
         </div>
-
         <div className='header__title-container'>
           <h1 className={`header__title ${lightModeClass}`}>{heading}</h1>
         </div>
-
         <div className='header__actions'>
           {search && (
             <button
