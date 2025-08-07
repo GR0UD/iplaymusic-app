@@ -1,3 +1,4 @@
+import { poppins } from "@/utils/fonts";
 import "../globals.css";
 
 export const metadata = {
@@ -9,9 +10,7 @@ export const metadata = {
 export default function BothLayout({ children }) {
   return (
     <html lang='en'>
-      <body className='antialiased'>
-        <main>{children}</main>
-      </body>
+      <body className={poppins.variable}>{children}</body>
     </html>
   );
 }

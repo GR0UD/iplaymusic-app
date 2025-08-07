@@ -1,7 +1,5 @@
 import "../globals.css";
-
 import { usePathname } from "next/navigation";
-
 import Header from "@/components/header";
 
 export const metadata = {
@@ -12,14 +10,13 @@ export const metadata = {
 
 export default function BothLayout({ children }) {
   const pathname = usePathname();
-
   const pageName = pathname.split("/").filter(Boolean).pop();
 
   return (
     <html lang='en'>
-      <body className='antialiased'>
+      <body>
         <Header pageName={pageName} />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );

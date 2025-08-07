@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
-import Icons from "../app/utils/Icons";
+import Icons from "@/utils/icons";
 import "@/styles/components/_onboarding.scss";
 
 const slides = [

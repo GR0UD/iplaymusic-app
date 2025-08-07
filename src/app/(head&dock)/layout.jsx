@@ -18,7 +18,7 @@ export default function BothLayout({ children }) {
 
   return (
     <html lang='en'>
-      <body className='antialiased'>
+      <body>
         <Header pageName={pageName} />
         <main>{children}</main>
         <Dock />

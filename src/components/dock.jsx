@@ -1,4 +1,4 @@
-import Icons from "../app/utils/Icons";
+import Icons from "@/utils/icons";
 import Link from "next/link";
 
 export default function Dock() {
