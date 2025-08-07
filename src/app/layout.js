@@ -3,7 +3,7 @@ import "@/styles/main.scss";
 import "./globals.css";
 
 export const metadata = {
-  title: "iPlayMusic App",
+  title: "iPlayMusic",
   description: "Your app description here",
 };
 
