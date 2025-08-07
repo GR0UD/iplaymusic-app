@@ -1,6 +1,5 @@
 import { poppins } from "@/utils/fonts";
-import "@/styles/main.scss";
-import "./globals.css";
+import "../globals.css";
 
 export const metadata = {
   title: "iPlayMusic App",
@@ -8,7 +7,7 @@ export const metadata = {
   viewport: "width=device-width, initial-scale=1.0",
 };
 
-export default function RootLayout({ children }) {
+export default function BothLayout({ children }) {
   return (
     <html lang='en'>
       <body className={poppins.variable}>{children}</body>

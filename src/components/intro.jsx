@@ -1,5 +1,6 @@
+"use client";
 import { useEffect, useState } from "react";
-import "../styles/components/_intro.scss";
+import "@/styles/components/_intro.scss";
 
 export default function Intro() {
   const [hide, setHide] = useState(false);

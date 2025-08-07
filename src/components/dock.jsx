@@ -1,59 +1,34 @@
-import Icons from "../app/utils/Icons";
-import { NavLink } from "react-router-dom";
+import Icons from "@/utils/icons";
+import Link from "next/link";
 
 export default function Dock() {
   return (
     <nav className='dock' aria-label='Bottom Navigation'>
       <ul className='dock__list'>
         <li className='dock__item'>
-          <NavLink
-            to='/categories'
-            className={({ isActive }) =>
-              `dock__link${isActive ? " dock__link--active" : ""}`
-            }
-          >
+          <Link href='/categories' className='dock__link'>
             <Icons.pulse size={25} aria-label='Categories' />
-          </NavLink>
+          </Link>
         </li>
         <li className='dock__item'>
-          <NavLink
-            to='/featured'
-            className={({ isActive }) =>
-              `dock__link${isActive ? " dock__link--active" : ""}`
-            }
-          >
+          <Link href='/featured' className='dock__link'>
             <Icons.microphone size={25} aria-label='Featured' />
-          </NavLink>
+          </Link>
         </li>
         <li className='dock__item--events'>
-          <NavLink
-            to='/events'
-            className={({ isActive }) =>
-              `dock__link${isActive ? " dock__link--active" : ""}`
-            }
-          >
+          <Link href='/events' className='dock__link'>
             <Icons.events size={30} aria-label='Events' />
-          </NavLink>
+          </Link>
         </li>
         <li className='dock__item'>
-          <NavLink
-            to='/playlists'
-            className={({ isActive }) =>
-              `dock__link${isActive ? " dock__link--active" : ""}`
-            }
-          >
+          <Link href='/playlists' className='dock__link'>
             <Icons.playlist size={25} aria-label='Playlists' />
-          </NavLink>
+          </Link>
         </li>
         <li className='dock__item'>
-          <NavLink
-            to='/settings'
-            className={({ isActive }) =>
-              `dock__link${isActive ? " dock__link--active" : ""}`
-            }
-          >
+          <Link href='/settings' className='dock__link'>
             <Icons.settings size={25} aria-label='Settings' />
-          </NavLink>
+          </Link>
         </li>
       </ul>
     </nav>
