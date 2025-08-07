@@ -1,25 +1,19 @@
+"use client";
+
 import "../globals.css";
-
 import { usePathname } from "next/navigation";
-
 import Header from "@/components/header";
 import Dock from "@/components/dock";
 
-export const metadata = {
-  title: "iPlayMusic App",
-  description: "Your app description here",
-  viewport: "width=device-width, initial-scale=1.0",
-};
-
 export default function BothLayout({ children }) {
   const pathname = usePathname();
-
-  const pageName = pathname.split("/").filter(Boolean).pop();
+  // Get the last part of the path as the page name
+  const pageName = pathname.split("/").filter(Boolean).pop() || "home";
 
   return (
     <html lang='en'>
       <body>
-        <Header pageName={pageName} />
+        <Header pageName={pageName} search={true} />
         <main>{children}</main>
         <Dock />
       </body>

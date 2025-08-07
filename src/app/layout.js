@@ -5,7 +5,11 @@ import "./globals.css";
 export const metadata = {
   title: "iPlayMusic App",
   description: "Your app description here",
-  viewport: "width=device-width, initial-scale=1.0",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {

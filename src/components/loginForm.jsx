@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Icons from "@/utils/icons";
 import Onboarding from "@/components/onboarding";
+import Spotify from "@/components/spotify-login";
 
 export default function LoginForm() {
   const [showLogin, setShowLogin] = useState(true);
@@ -60,32 +61,7 @@ export default function LoginForm() {
             </button>
           </form>
 
-          <div className='login__biometric'>
-            <button
-              type='button'
-              className='biometric__button'
-              onClick={() => {
-                setStartFadeOut(true);
-                setTimeout(() => {
-                  setShowLogin(false);
-                  const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-                  const redirectUri =
-                    process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
-                  const scope = "user-read-private user-read-email";
-                  const authUrl =
-                    "https://accounts.spotify.com/authorize?" +
-                    `response_type=code&` +
-                    `client_id=${encodeURIComponent(clientId)}&` +
-                    `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-                    `scope=${encodeURIComponent(scope)}`;
-                  window.location.href = authUrl;
-                }, 500);
-              }}
-            >
-              <Icons.fingerPrint aria-label='Finger print icon' />
-            </button>
-            <p className='biometric__label'>One-Touch Login</p>
-          </div>
+          <Spotify />
         </section>
       )}
       {!showLogin && <Onboarding />}
