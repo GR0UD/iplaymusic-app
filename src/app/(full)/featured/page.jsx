@@ -7,7 +7,6 @@ export default async function FeaturedPage() {
   const accessToken = cookieStore.get("ipm_access_token");
 
   if (!accessToken?.value) {
-    // Optionally, redirect to login or show an error
     return (
       <main className='featured'>
         <section className='featured__section'>
