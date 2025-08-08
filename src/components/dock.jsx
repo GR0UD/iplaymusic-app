@@ -1,35 +1,71 @@
-import Icons from "@/utils/icons";
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { m as motion } from "framer-motion";
+import Icons from "@/utils/icons";
+import "@/styles/components/_dock.scss";
+
+const LINKS = [
+  { href: "/categories", Icon: Icons.pulse, size: 25 },
+  { href: "/featured", Icon: Icons.microphone, size: 25 },
+  {
+    href: "/events",
+    Icon: Icons.events,
+    size: 30,
+    emphasize: true,
+  },
+  { href: "/playlists", Icon: Icons.playlist, size: 25 },
+  { href: "/settings", Icon: Icons.settings, size: 25 },
+];
+
+const isActivePath = (pathname, href) => {
+  if (pathname === href) return true;
+  if (!href.endsWith("/")) href += "/";
+  return pathname.startsWith(href);
+};
 
 export default function Dock() {
+  const pathname = usePathname();
+
   return (
-    <nav className='dock' aria-label='Bottom Navigation'>
+    <nav className='dock' aria-label='Bottom navigation'>
       <ul className='dock__list'>
-        <li className='dock__item'>
-          <Link href='/albums' className='dock__link'>
-            <Icons.pulse size={25} aria-label='Categories' />
-          </Link>
-        </li>
-        <li className='dock__item'>
-          <Link href='/playlists' className='dock__link'>
-            <Icons.microphone size={25} aria-label='Featured' />
-          </Link>
-        </li>
-        <li className='dock__item--events'>
-          <Link href='/featured' className='dock__link'>
-            <Icons.events size={30} aria-label='Events' />
-          </Link>
-        </li>
-        <li className='dock__item'>
-          <Link href='/playlists' className='dock__link'>
-            <Icons.playlist size={25} aria-label='Playlists' />
-          </Link>
-        </li>
-        <li className='dock__item'>
-          <Link href='/settings' className='dock__link'>
-            <Icons.settings size={25} aria-label='Settings' />
-          </Link>
-        </li>
+        {LINKS.map(({ href, label, Icon, size, emphasize }) => {
+          const active = isActivePath(pathname, href);
+          return (
+            <li
+              key={href}
+              className='dock__item'
+              data-emphasize={emphasize || undefined}
+              data-active={active || undefined}
+            >
+              <Link
+                href={href}
+                className='dock__link'
+                aria-current={active ? "page" : undefined}
+                prefetch
+              >
+                {active && (
+                  <motion.span
+                    layoutId='dock-active'
+                    className='dock__active'
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 40,
+                      mass: 0.4,
+                    }}
+                  />
+                )}
+
+                <span className='dock__icon' aria-hidden='true'>
+                  <Icon size={size} />
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

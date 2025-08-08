@@ -22,7 +22,7 @@
   &__grid {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 5rem;
   }
 
   &__card {
@@ -43,7 +43,7 @@
   &__image {
     grid-area: 1 / 1;
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: cover;
   }
