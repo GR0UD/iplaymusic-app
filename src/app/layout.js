@@ -5,6 +5,9 @@ import "./globals.css";
 export const metadata = {
   title: "iPlayMusic",
   description: "Your app description here",
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "32x32" }],
+  },
 };
 
 export const viewport = {
