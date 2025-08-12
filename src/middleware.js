@@ -1,123 +1,100 @@
+// middleware.js
 import { NextResponse } from "next/server";
 
-export const config = {
-  // Run on everything except known static assets; we are skipping internal paths inside the handler too.
-  matcher: [
-    "/((?!_next/|favicon.ico|robots.txt|sitemap.xml|assets/|images/|fonts/|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|mp4|mp3|txt|xml)$).*)",
-  ],
-};
+export default async function middleware(request) {
+  const { pathname } = request.nextUrl;
 
-export async function middleware(request) {
-  const url = request.nextUrl;
-  const { pathname } = url;
-
-  // Pass through API & build assets
-  if (
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon")
-  ) {
+  // Allow /login only when NOT logged in. If logged in, kick to /featured.
+  if (pathname.startsWith("/login")) {
+    if (request.cookies.has("ipm_access_token")) {
+      return NextResponse.redirect(new URL("/featured", request.url));
+    }
     return NextResponse.next();
   }
 
-  const hasAccess = request.cookies.has("ipm_access_token");
-  const hasRefresh = request.cookies.has("ipm_refresh_token");
-
-  // If logged in already, block /login and send to /featured
-  if (pathname.startsWith("/login") && hasAccess) {
-    return NextResponse.redirect(new URL("/featured", request.url));
-  }
-
-  // Helper: after successful auth, either go to /featured (for "/") or continue
-  const proceedAfterAuth = (response) => {
-    if (pathname === "/") {
-      return NextResponse.redirect(new URL("/featured", request.url), {
-        headers: response.headers,
-      });
-    }
-    return response;
-  };
-
-  // If we already have access, either redirect "/" -> "/featured" or proceed
-  if (hasAccess) {
+  // Already authenticated
+  if (request.cookies.has("ipm_access_token")) {
+    // Root goes to /featured when logged in
     if (pathname === "/") {
       return NextResponse.redirect(new URL("/featured", request.url));
     }
     return NextResponse.next();
   }
 
-  // No access token
-  if (!hasRefresh) {
-    // If we’re at "/", send to login; otherwise also send to login
+  // Not authenticated
+  console.log("middleware: No access token");
+
+  // Any page when not logged in requires refresh or redirect to /login
+  if (!request.cookies.has("ipm_refresh_token")) {
+    console.log("middleware: no refresh token. Redirecting to /login");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Try to refresh using the refresh token
-  const refreshToken = request.cookies.get("ipm_refresh_token")?.value ?? "";
+  console.log(
+    "middleware: refresh token exists. Attempting to fetch new access token."
+  );
 
   try {
-    J;
-    // Prefer Basic auth (client_id:client_secret) if you have a secret; fallback to public-only (PKCE)
-    const headers = new Headers();
-    headers.set("Content-Type", "application/x-www-form-urlencoded");
-    if (process.env.SPOTIFY_CLIENT_ID && process.env.SPOTIFY_CLIENT_SECRET) {
-      const basic = Buffer.from(
-        `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-      ).toString("base64");
-      headers.set("Authorization", `Basic ${basic}`);
-    }
+    const refreshToken = request.cookies.get("ipm_refresh_token").value;
 
-    const body = new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-    });
-
-    // If you’re using a pure PKCE flow (no secret), Spotify allows client_id in body:
-    if (!headers.has("Authorization") && process.env.SPOTIFY_CLIENT_ID) {
-      body.set("client_id", process.env.SPOTIFY_CLIENT_ID);
-    }
-
-    const res = await fetch("https://accounts.spotify.com/api/token", {
+    const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
-      headers,
-      body,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${btoa(
+          `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+        )}`,
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
+      }),
     });
 
-    if (!res.ok) {
+    if (!response.ok) {
+      console.log("middleware: refresh failed with status", response.status);
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    const data = await res.json();
+    const data = await response.json();
+    console.log("middleware: data from spotify:", data);
 
-    // Prepare response and set cookies
-    const response = NextResponse.next();
-
-    if (data.access_token) {
-      response.cookies.set("ipm_access_token", data.access_token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-        path: "/",
-        maxAge: typeof data.expires_in === "number" ? data.expires_in : 3600, // seconds
-      });
-    } else {
-      // No new access token -> cannot proceed
+    if (!data.access_token) {
+      console.log(
+        "middleware: no access_token in response. Redirecting to /login"
+      );
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    // Spotify may return a new refresh token
+    // Success: set cookies and head to /featured
+    const res = NextResponse.redirect(new URL("/featured", request.url));
+    res.cookies.set("ipm_access_token", data.access_token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: typeof data.expires_in === "number" ? data.expires_in : 3600,
+    });
     if (data.refresh_token) {
-      response.cookies.set("ipm_refresh_token", data.refresh_token, {
+      res.cookies.set("ipm_refresh_token", data.refresh_token, {
         httpOnly: true,
         secure: true,
         sameSite: "lax",
         path: "/",
-        maxAge: 60 * 60 * 24 * 30, // 30 days
+        maxAge: 60 * 60 * 24 * 30,
       });
     }
-
-    return proceedAfterAuth(response);
-  } catch {
+    return res;
+  } catch (err) {
+    console.log("middleware: refresh threw", err);
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
+
+// Protect (almost) everything; skip static & API for perf.
+export const config = {
+  matcher: [
+    "/((?!_next/|api/|favicon.ico|robots.txt|sitemap.xml|assets/|images/|fonts/|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|mp4|mp3|txt|xml)$).*)",
+  ],
+};
