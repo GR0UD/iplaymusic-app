@@ -3,16 +3,15 @@ import "@/styles/main.scss";
 import "./globals.css";
 
 export const metadata = {
-  title: "iPlayMusic",
-  description: "Your app description here",
-  icons: {
-    icon: [{ url: "/favicon.png", type: "image/png", sizes: "32x32" }],
+  title: {
+    template: "%s | iPlayMusic",
+    default: "iPlayMusic",
   },
-};
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
+  description: "A music player web-app",
+  viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }) {

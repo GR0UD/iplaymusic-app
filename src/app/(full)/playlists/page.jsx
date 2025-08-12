@@ -1,6 +1,5 @@
 import Header from "../../components/header";
 import Dock from "../../components/dock";
-import "../styles/pages/_playlists.scss";
 import Icons from "@/utils/icons";
 
 const playlistData = {

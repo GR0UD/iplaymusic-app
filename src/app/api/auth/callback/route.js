@@ -37,5 +37,5 @@ export async function GET(request) {
     maxAge: 60 * 60 * 24 * 30,
   });
 
-  redirect("/featured");
+  redirect("/");
 }

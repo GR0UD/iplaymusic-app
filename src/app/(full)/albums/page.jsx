@@ -1,6 +1,5 @@
 import Header from "../../components/header";
 import Dock from "../../components/dock";
-import "../styles/pages/_albums.scss";
 import Icons from "@/utils/icons";
 
 const featuredAlbums = [

@@ -1,5 +1,4 @@
 import Header from "../../components/header";
-import "../styles/pages/_player.scss";
 import Icons from "../utils/Icons";
 
 export default function PlayerPage() {
