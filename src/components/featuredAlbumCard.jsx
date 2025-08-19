@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function FeaturedAlbumCard({ album }) {
   return (
-    <Link href={`/album/${album.id}`} className='featured__link'>
+    <Link href={`/albums/${album.id}`} className='featured__link'>
       <article className='featured__card'>
         <Image
           unoptimized
