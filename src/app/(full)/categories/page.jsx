@@ -1,164 +1,109 @@
-import { useEffect } from "react";
-import Header from "../../components/header";
-import Dock from "../../components/dock";
+import { cookies } from "next/headers";
 import Icons from "@/utils/icons";
 
-const categoriesData = [
-  {
-    title: "Alternative",
-    color: "hot-pink",
-    subcategories: [
-      "Indie Rock",
-      "Alternative Pop",
-      "Post-Punk Revival",
-      "Dream Pop",
-      "Grunge",
-    ],
-  },
-  {
-    title: "Blues",
-    color: "red",
-    subcategories: [
-      "Acoustic Blues",
-      "Blues Rock",
-      "Canadian Blues",
-      "Delta Blues",
-      "Piano Blues",
-      "Soul Blues",
-      "Swamp Blues",
-    ],
-  },
-  {
-    title: "Classical",
-    color: "orange",
-    subcategories: [
-      "Baroque",
-      "Romantic",
-      "Contemporary",
-      "Orchestral",
-      "Solo Piano",
-    ],
-  },
-  {
-    title: "Country",
-    color: "yellow",
-    subcategories: [
-      "Classic Country",
-      "Modern Country",
-      "Outlaw Country",
-      "Country Rock",
-      "Bluegrass",
-    ],
-  },
-  {
-    title: "Dance",
-    color: "green",
-    subcategories: ["EDM", "House", "Trance", "Techno", "Electro Pop"],
-  },
-  {
-    title: "Electronic",
-    color: "dark-green",
-    subcategories: ["Ambient", "Downtempo", "Drum & Bass", "Synthwave", "IDM"],
-  },
-  {
-    title: "Fitness & Workout",
-    color: "cyan",
-    subcategories: [
-      "Cardio Mix",
-      "HIIT Beats",
-      "Strength Training",
-      "Running Tracks",
-      "Gym Motivation",
-    ],
-  },
-  {
-    title: "Hip-hop/Rap",
-    color: "blue",
-    subcategories: [
-      "Trap",
-      "Boom Bap",
-      "Lo-fi Rap",
-      "Gangsta Rap",
-      "Conscious Rap",
-    ],
-  },
-  {
-    title: "Industrial",
-    color: "deep-blue",
-    subcategories: [
-      "Industrial Rock",
-      "Dark Electro",
-      "EBM",
-      "Aggrotech",
-      "Noise",
-    ],
-  },
-];
+export const metadata = {
+  title: "Categories",
+};
 
-export default function CategoriesPage() {
-  useEffect(() => {
-    const items = document.querySelectorAll(".categories__item");
-    items.forEach((item) => {
-      item.addEventListener("toggle", () => {
-        if (item.open) {
-          items.forEach((other) => {
-            if (other !== item) {
-              other.removeAttribute("open");
-            }
-          });
-        }
-      });
-    });
+export default async function CategoriesPage() {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("ipm_access_token")?.value;
 
-    // Cleanup to avoid duplicate listeners if component re-renders
-    return () => {
-      items.forEach((item) => {
-        item.replaceWith(item.cloneNode(true));
-      });
-    };
-  }, []);
+  if (!accessToken) {
+    return (
+      <>
+        <main className='categories'>
+          <h2 className='categories__title'>Categories</h2>
+          <p className='categories__error'>
+            No Spotify access token found. Please log in.
+          </p>
+        </main>
+      </>
+    );
+  }
+
+  // 1) Fetch categories
+  const resp = await fetch(
+    "https://api.spotify.com/v1/browse/categories?limit=20",
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      cache: "no-store",
+    }
+  );
+
+  if (!resp.ok) {
+    return (
+      <>
+        <main className='categories'>
+          <h2 className='categories__title'>Categories</h2>
+          <p className='categories__error'>
+            Spotify API error: {resp.status} {resp.statusText}
+          </p>
+        </main>
+      </>
+    );
+  }
+
+  const data = await resp.json();
+  const categories = data?.categories?.items ?? [];
 
   return (
     <>
-      <Header heading='Categories' search={true} dark={false} />
-
       <main className='categories'>
         <section className='categories__section'>
           <h2 className='categories__title'>Categories</h2>
 
           <div className='categories__wrapper'>
-            {categoriesData.map(({ title, color, subcategories }) => (
-              <details key={title} className='categories__item'>
-                <summary className={`categories__summary ${color}`}>
-                  {title}
+            {categories.map((cat) => (
+              <details key={cat.id} className='categories__item'>
+                <summary className='categories__summary'>
+                  {cat.name}
                   <Icons.dots size={20} />
                 </summary>
 
-                {subcategories && (
-                  <div className='categories__sublist'>
-                    {subcategories.map((sub) => (
-                      <details key={sub} className='categories__subitem'>
-                        <summary className='categories__subsummary'>
-                          {sub}
-                          <Icons.forward
-                            size={20}
-                            className='categories__arrow'
-                          />
-                        </summary>
-                        <div className='categories__subcontent'>
-                          <p>Content for {sub} subcategory.</p>
-                        </div>
-                      </details>
-                    ))}
-                  </div>
-                )}
+                {/* Subcontent: playlists inside this category */}
+                <CategoryPlaylists
+                  categoryId={cat.id}
+                  accessToken={accessToken}
+                />
               </details>
             ))}
           </div>
         </section>
       </main>
-
-      <Dock />
     </>
+  );
+}
+
+async function CategoryPlaylists({ categoryId, accessToken }) {
+  const resp = await fetch(
+    `https://api.spotify.com/v1/browse/categories/${categoryId}/playlists?limit=10`,
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      cache: "no-store",
+    }
+  );
+
+  if (!resp.ok) {
+    return <p className='categories__error'>Could not load playlists.</p>;
+  }
+
+  const data = await resp.json();
+  const playlists = data?.playlists?.items ?? [];
+
+  return (
+    <div className='categories__sublist'>
+      {playlists.map((pl) => (
+        <details key={pl.id} className='categories__subitem'>
+          <summary className='categories__subsummary'>
+            {pl.name}
+            <Icons.forward size={20} className='categories__arrow' />
+          </summary>
+          <div className='categories__subcontent'>
+            <p>{pl.description || "No description"}</p>
+          </div>
+        </details>
+      ))}
+    </div>
   );
 }

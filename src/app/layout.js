@@ -8,10 +8,17 @@ export const metadata = {
     default: "iPlayMusic",
   },
   description: "A music player web-app",
-  viewport: "width=device-width, initial-scale=1",
-  icons: {
-    icon: "/favicon.png",
-  },
+  icons: { icon: "/favicon.png" },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 export default function RootLayout({ children }) {
@@ -19,7 +26,6 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body className={poppins.variable}>
         {children}
-
         <svg
           width='0'
           height='0'

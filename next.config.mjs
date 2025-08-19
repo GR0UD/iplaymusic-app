@@ -1,15 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow Spotify images via next/image
   images: {
-    domains: [
-      // add all your allowed external image domains here, e.g.:
-      "https://i.scdn.co",
-    ],
+    domains: ["i.scdn.co"], // Just the hostname, no protocol
   },
+
+  // SASS preprocessing defaults
   sassOptions: {
     additionalData: `$var: red;`,
   },
-  allowedDevOrigins: ["http://localhost:3000", "http://127.0.0.1:3000"],
 };
 
 export default nextConfig;

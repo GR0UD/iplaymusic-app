@@ -8,9 +8,9 @@ import "@/styles/components/_dock.scss";
 
 const LINKS = [
   { href: "/categories", Icon: Icons.pulse, size: 25 },
-  { href: "/featured", Icon: Icons.microphone, size: 25 },
+  { href: "/events", Icon: Icons.microphone, size: 25 },
   {
-    href: "/events",
+    href: "/",
     Icon: Icons.events,
     size: 30,
     emphasize: true,
