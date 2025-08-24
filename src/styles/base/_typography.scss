@@ -1,4 +1,4 @@
-@use "../utils/variables" as *;
+@use "../utils/_variables.scss" as *;
 
 html {
   font-size: 62.5%;
@@ -17,4 +17,19 @@ body {
 
 *::-webkit-scrollbar {
   display: none; // Chrome, Safari, Edge
+}
+
+
+/* Theme system */
+:root {
+  --bg: #ffffff;
+  --fg: #171c28;
+}
+[data-theme='dark'] {
+  --bg: #0b0f18;
+  --fg: #f5f7fb;
+}
+body {
+  background-color: var(--bg);
+  color: var(--fg);
 }

@@ -1,4 +1,4 @@
-@use "../utils/variables" as *;
+@use "../utils/_variables.scss" as *;
 
 .header {
   &__container {
@@ -6,7 +6,6 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    color: $color-white;
     padding: 3rem 2.5rem;
   }
 
@@ -58,5 +57,9 @@
 }
 
 .mode-dark {
-  color: white !important;
+  color: $color-white !important;
+}
+
+.transparent {
+  background: transparent !important;
 }

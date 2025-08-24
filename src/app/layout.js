@@ -1,4 +1,7 @@
 import { poppins } from "@/utils/fonts";
+import { PlayerProvider } from "@/providers/player-provider";
+import Player from "@/components/player";
+
 import "@/styles/main.scss";
 import "./globals.css";
 
@@ -8,7 +11,6 @@ export const metadata = {
     default: "iPlayMusic",
   },
   description: "A music player web-app",
-  icons: { icon: "/favicon.png" },
 };
 
 export const viewport = {
@@ -25,7 +27,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={poppins.variable}>
-        {children}
+        <PlayerProvider>
+          {children}
+          <Player />
+        </PlayerProvider>
+
         <svg
           width='0'
           height='0'

@@ -5,7 +5,7 @@ import Header from "@/components/header";
 export default function HeadOnlyLayout({ children }) {
   return (
     <>
-      <Header pageName={pageName} />
+      <Header />
       <main>{children}</main>
     </>
   );

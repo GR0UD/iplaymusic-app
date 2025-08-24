@@ -37,7 +37,7 @@ export default async function FeaturedPage() {
   if (!resp.ok) {
     return (
       <>
-        <Header search={true} />
+        <Header search={true} transparent={true} dark={false} />
         <main className='featured'>
           <section className='featured__section'>
             <h2 className='featured__title'>Featured</h2>
@@ -56,7 +56,7 @@ export default async function FeaturedPage() {
 
   return (
     <>
-      <Header search={true} dark={true} />
+      <Header search={true} transparent={true} dark={false} />
       <main className='featured'>
         <section className='featured__section'>
           <h2 className='featured__title'>Featured</h2>

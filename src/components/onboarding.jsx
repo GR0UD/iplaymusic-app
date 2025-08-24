@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Icons from "@/utils/icons";
-import "@/styles/components/_onboarding.scss";
 
 const slides = [
   {
@@ -31,19 +33,27 @@ export default function Onboarding() {
   const handleChange = (i) => {
     if (i !== index) {
       setFading(true);
-      setTimeout(() => {
+      const t = setTimeout(() => {
         setIndex(i);
         setFading(false);
       }, 300);
+      // safety in case the component unmounts mid-fade
+      return () => clearTimeout(t);
     }
   };
 
   const current = slides[index];
 
   return (
-    <section className='onboarding'>
+    <section className='onboarding' aria-live='polite'>
       <div className={`onboarding__image-wrapper ${current.border}`}>
-        <img src='/images/blob.png' alt='blob' />
+        <Image
+          src='/images/blob.png'
+          alt='Abstract music blob'
+          width={512}
+          height={512}
+          priority
+        />
       </div>
 
       <div className={`onboarding__content ${fading ? "fade" : ""}`}>
@@ -54,26 +64,32 @@ export default function Onboarding() {
               <br />
             </span>
           ))}
-        </h2>{" "}
+        </h2>
         <p className='onboarding__text'>{current.text}</p>
       </div>
 
-      <div className='onboarding__buttons'>
+      <div
+        className='onboarding__buttons'
+        role='tablist'
+        aria-label='Onboarding slides'
+      >
         {slides.map((slide, i) => (
           <button
             key={i}
             className={`onboarding__icon-button ${i === index ? "active" : ""}`}
             onClick={() => handleChange(i)}
-            aria-label={`Select ${slide.title}`}
+            aria-label={`Select: ${slide.title.replace("\n", " ")}`}
+            aria-selected={i === index}
+            role='tab'
           >
-            {slide.icon === "signal" && <Icons.signal />}
-            {slide.icon === "heart" && <Icons.heart />}
-            {slide.icon === "note" && <Icons.note />}
+            {slide.icon === "signal" && <Icons.signal aria-hidden />}
+            {slide.icon === "heart" && <Icons.heart aria-hidden />}
+            {slide.icon === "note" && <Icons.note aria-hidden />}
           </button>
         ))}
       </div>
 
-      <Link to='/featured' className='onboarding__skip'>
+      <Link href='/' className='onboarding__skip' aria-label='Skip onboarding'>
         SKIP
       </Link>
     </section>

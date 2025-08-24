@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Icons from "@/utils/icons";
-import Onboarding from "@/components/onboarding";
 import Spotify from "@/components/spotify-login";
 
 export default function LoginForm() {
@@ -64,7 +63,6 @@ export default function LoginForm() {
           <Spotify />
         </section>
       )}
-      {!showLogin && <Onboarding />}
     </>
   );
 }

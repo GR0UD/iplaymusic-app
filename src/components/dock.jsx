@@ -4,19 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { m as motion } from "framer-motion";
 import Icons from "@/utils/icons";
-import "@/styles/components/_dock.scss";
 
 const LINKS = [
-  { href: "/categories", Icon: Icons.pulse, size: 25 },
-  { href: "/events", Icon: Icons.microphone, size: 25 },
+  { href: "/albums", Icon: Icons.pulse, size: 25 },
+  { href: "/playlists", Icon: Icons.microphone, size: 25 },
   {
     href: "/",
     Icon: Icons.events,
     size: 30,
     emphasize: true,
   },
-  { href: "/playlists", Icon: Icons.playlist, size: 25 },
-  { href: "/settings", Icon: Icons.settings, size: 25 },
+  { href: "/theme", Icon: Icons.playlist, size: 25 },
+  { href: "/categories", Icon: Icons.settings, size: 25 },
 ];
 
 const isActivePath = (pathname, href) => {
