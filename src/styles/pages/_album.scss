@@ -1,5 +1,4 @@
-@use "../utils/variables" as *;
-@use "../utils/mixins" as *;
+@use "../utils/_variables.scss" as *;
 
 .album-details {
   margin-bottom: 10rem;
@@ -113,40 +112,6 @@
     display: flex;
     align-items: center;
     gap: 1.2rem;
-  }
-
-  &__play-btn {
-    background: $gradient-primary;
-    border: none;
-    border-radius: 50%;
-    padding: 0.75rem;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__track-info {
-    flex-grow: 1;
-
-    h3 {
-      font-size: $font-size-body-md;
-      font-weight: $font-weight-bold;
-      margin-bottom: 0.3rem;
-      @include ellipsis-1line;
-    }
-
-    p {
-      font-size: $font-size-body-sm;
-      font-weight: $font-weight-light;
-      color: $color-dark-purple;
-    }
-  }
-
-  &__duration {
-    font-size: $font-size-body-sm;
-    font-weight: $font-weight-light;
-    color: $color-dark-purple;
+    padding: 0 2.5rem;
   }
 }

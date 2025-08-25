@@ -37,6 +37,7 @@ $color-dark-purple: #171c28; // additional/surface-2
 
 // Supportive colors (from swatch row – approximate)
 $color-blue: #115793;
+$color-deep-blue: #0e3f6a;
 $color-cyan: #00a1cb;
 $color-light-cyan: #0abebe;
 $color-green: #5eb11c;
@@ -78,3 +79,10 @@ $space-8: 4.8rem;
 /* Aliases for legacy names used in components */
 $color-hot-pink: #ff2d9b; // alias for vivid pink accents
 $color-red: #ff3b30; // system red (errors)
+
+// === Fallback mixins (auto-injected) ===
+@mixin ellipsis-1line() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

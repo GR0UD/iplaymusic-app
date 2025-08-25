@@ -21,6 +21,10 @@ import {
   TbPlayerTrackPrevFilled,
 } from "react-icons/tb";
 import { CgPlayTrackPrev, CgPlayTrackNext } from "react-icons/cg";
+
+import { FaBackward, FaForward } from "react-icons/fa"; // rewind/forward
+import { FiVolume2, FiVolumeX } from "react-icons/fi"; // volume/mute
+
 const Icons = {
   key: IoIosKey,
   user: IoIosContact,
@@ -44,6 +48,11 @@ const Icons = {
   next: TbPlayerTrackNextFilled,
   skipb: CgPlayTrackPrev,
   skipf: CgPlayTrackNext,
+
+  rewind: FaBackward,
+  forward10: FaForward,
+  volume: FiVolume2,
+  volumeX: FiVolumeX,
 };
 
 export default Icons;

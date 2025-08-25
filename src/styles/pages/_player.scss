@@ -1,4 +1,4 @@
-@use "../utils/variables" as *;
+@use "../utils/_variables.scss" as *;
 
 .player {
   &__section {
@@ -38,10 +38,10 @@
   }
 
   &__info {
-    margin-bottom: 2rem;
+    margin-bottom: $font-size-body-lg;
     .player__title {
       font-size: $font-size-body-lg;
-      font-weight: 700;
+      font-weight: $font-weight-bold;
       color: $color-dark-purple;
     }
 
@@ -58,7 +58,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: $font-size-body-lg;
     padding: 0 2.5rem;
 
     .player__slider {

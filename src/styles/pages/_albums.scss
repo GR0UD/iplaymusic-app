@@ -1,12 +1,11 @@
-@use "../utils/variables" as *;
-@use "../utils/mixins" as *;
+@use "../utils/_variables.scss" as *;
 
 .albums {
   padding: 0 2.5rem;
   margin-bottom: 10rem;
 
   &__section {
-    margin-bottom: 4rem;
+    margin-bottom: $space-7;
     position: relative;
   }
 
@@ -16,14 +15,14 @@
     background: $gradient-primary;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 2rem;
+    margin-bottom: $font-size-body-lg;
   }
 
   &__subheading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: $font-size-body-lg;
   }
 
   &__heading {
@@ -97,7 +96,7 @@
   &__info {
     max-width: 55%;
     margin-right: auto;
-    margin-left: 1rem;
+    margin-left: $font-size-smallest;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -121,6 +120,6 @@
     color: $color-dark-purple;
     font-weight: $font-weight-light;
     font-size: $font-size-body-sm;
-    margin-top: 1.2rem;
+    margin-top: $font-size-caption;
   }
 }

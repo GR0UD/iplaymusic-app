@@ -6,7 +6,6 @@ import Dock from "@/components/dock";
 export default function BothLayout({ children }) {
   return (
     <>
-      <Header search={true} />
       <main>{children}</main>
       <Dock />
     </>

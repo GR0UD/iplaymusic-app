@@ -1,4 +1,4 @@
-@use "../utils/variables" as *;
+@use "../utils/_variables.scss" as *;
 
 .categories {
   padding: 0 2.5rem;
@@ -150,12 +150,12 @@
     background-color: $color-dark-green;
   }
   .cyan {
-    background-color: $color-light-cyan;
+    background-color: $color-deep-blue;
   }
   .blue {
-    background-color: $color-cyan;
+    background-color: $color-deep-blue;
   }
   .deep-blue {
-    background-color: $color-blue;
+    background-color: $color-deep-blue;
   }
 }

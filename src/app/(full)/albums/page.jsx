@@ -1,6 +1,7 @@
 // app/(full)/albums/page.jsx
 import Link from "next/link";
 import { cookies } from "next/headers";
+import Header from "@/components/header";
 
 export const metadata = {
   title: "Albums",
@@ -52,10 +53,11 @@ export default async function AlbumsPage() {
 
   return (
     <>
+      <Header transparent={true} search={true} dark={false} />
+
       <main className='albums'>
         <h2 className='albums__title'>All Albums</h2>
 
-        {/* Featured Albums (first 6 new releases) */}
         <section className='albums__section'>
           <div className='albums__subheading'>
             <h3 className='albums__heading'>Featured Albums</h3>

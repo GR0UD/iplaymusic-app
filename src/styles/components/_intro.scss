@@ -1,4 +1,4 @@
-@use "../utils/variables" as *;
+@use "../utils/_variables.scss" as *;
 
 .intro {
   position: absolute;
@@ -28,7 +28,7 @@
   }
 
   &__title {
-    margin-top: 2rem;
+    margin-top: $font-size-body-lg;
     font-weight: bold;
     font-size: $font-size-heading-md;
     color: rgb(52, 25, 49);

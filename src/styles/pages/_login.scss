@@ -1,4 +1,4 @@
-@use "../utils/variables" as *;
+@use "../utils/_variables.scss" as *;
 
 .login {
   &__section {
@@ -26,7 +26,7 @@
   }
 
   &__header {
-    margin-bottom: 2rem;
+    margin-bottom: $font-size-body-lg;
     text-align: left;
     width: 100%;
     margin-bottom: auto;
@@ -34,7 +34,7 @@
 
   &__title {
     font-family: "Poppins", sans-serif;
-    font-weight: 700;
+    font-weight: $font-weight-bold;
     font-size: $font-size-heading-lg;
     color: $color-dark-purple;
   }
@@ -54,7 +54,7 @@
       }
 
       &__label {
-        font-weight: 600;
+        font-weight: $font-weight-semibold;
         font-size: $font-size-body-md;
         color: $color-dark-purple;
       }
