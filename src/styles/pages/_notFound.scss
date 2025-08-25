@@ -1,0 +1,100 @@
+@use "../utils/_variables.scss" as *;
+
+.notfound {
+  min-height: 70vh;
+  padding: $space-7 $space-4;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  font-family: $font-family-base;
+  color: $color-white;
+
+  &__card {
+    width: min(720px, 100%);
+    background: $color-secondary;
+    border-radius: $radius-lg;
+    padding: $space-8 $space-6;
+    box-shadow: $shadow-soft;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+  }
+
+  &__title {
+    font-weight: $font-weight-extrabold;
+    font-size: $font-size-heading-lg;
+    line-height: 1.1;
+    margin: 0 0 $space-3;
+
+    /* gradient text using your tokens */
+    background: $font-gradient-primary;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &__text {
+    font-size: $font-size-body-md;
+    color: $color-gray-300;
+    margin: 0 0 $space-6;
+  }
+
+  &__actions {
+    display: inline-flex;
+    gap: $space-4;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    padding: $space-3 $space-5;
+    border-radius: $radius-md;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-body-md;
+    text-decoration: none;
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+    border: 1px solid transparent;
+
+    &:focus-visible {
+      outline: 2px solid $color-gray-300;
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &--primary {
+      background: $gradient-primary;
+      color: $color-white;
+      box-shadow: $shadow-soft;
+
+      &:hover {
+        opacity: 0.95;
+      }
+    }
+
+    &--ghost {
+      background: transparent;
+      color: $color-gray-100;
+      border-color: $color-gray-700;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+    }
+  }
+}
+
+/* Small responsive tweak */
+@media (max-width: 480px) {
+  .notfound__title {
+    font-size: $font-size-heading-md;
+  }
+  .notfound__text {
+    font-size: $font-size-body-sm;
+  }
+}
