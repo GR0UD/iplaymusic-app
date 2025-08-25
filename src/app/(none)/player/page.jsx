@@ -1,4 +1,7 @@
-import Header from "../../components/header";
+"use client";
+
+import Image from "next/image";
+import Header from "@/components/header";
 import Icons from "@/utils/icons";
 
 export default function PlayerPage() {
@@ -9,7 +12,13 @@ export default function PlayerPage() {
         <section className='player__section'>
           <article className='player__vinyl-wrapper'>
             <figure className='player__vinyl'>
-              <img src='/images/vinyl.png' alt='Rotating vinyl record' />
+              <Image
+                src='/images/vinyl.png'
+                alt='Rotating vinyl record'
+                width={320}
+                height={320}
+                priority
+              />
             </figure>
           </article>
 
@@ -19,17 +28,25 @@ export default function PlayerPage() {
           </div>
 
           <div className='player__progress'>
-            <input type='range' className='player__slider' />
+            <input
+              type='range'
+              className='player__slider'
+              min={0}
+              max={220} // 3:40 = 220s (tweak if you wire it up)
+              defaultValue={0}
+              aria-label='Seek position'
+            />
             <div className='player__time-wrapper'>
               <span className='player__time player__time--start'>0:00</span>
               <span className='player__time player__time--end'>3:40</span>
             </div>
           </div>
 
-          <nav className='player__controls'>
+          <nav className='player__controls' aria-label='Player controls'>
             <button
               className='player__button player__button--skip-back'
               aria-label='Skip to beginning'
+              type='button'
             >
               <Icons.skipb size={30} />
             </button>
@@ -37,6 +54,7 @@ export default function PlayerPage() {
             <button
               className='player__button player__button--prev'
               aria-label='Previous track'
+              type='button'
             >
               <Icons.prev size={30} />
             </button>
@@ -44,6 +62,7 @@ export default function PlayerPage() {
             <button
               className='player__button player__button--play'
               aria-label='Play or pause'
+              type='button'
             >
               <Icons.play size={50} />
             </button>
@@ -51,6 +70,7 @@ export default function PlayerPage() {
             <button
               className='player__button player__button--next'
               aria-label='Next track'
+              type='button'
             >
               <Icons.next size={30} />
             </button>
@@ -58,6 +78,7 @@ export default function PlayerPage() {
             <button
               className='player__button player__button--skip-forward'
               aria-label='Skip to end'
+              type='button'
             >
               <Icons.skipf size={30} />
             </button>
